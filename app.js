@@ -1,41 +1,37 @@
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const typeDefsBook = require('./schemas/Book');
-const typeDefsUser = require('./schemas/User');
-const booksResolvers = require('./resolvers/books');
-const usersResolvers = require('./resolvers/users');
-const { authenticate } = require('./middleware/authenticate');
-require('dotenv').config();
+import { ApolloServer } from '@apollo/server'
+import { startStandaloneServer } from '@apollo/server/standalone'
 
-const sequelize  = require('./utils/database');
+import typeDefsBook from './schemas/Book.js'
+import typeDefsUser from './schemas/User.js'
+import booksResolvers from './resolvers/books.js'      
+import usersResolvers from './resolvers/users.js'
 
-const app = express();
+import authenticate  from './middleware/authenticate.js'
+import sequelize from './utils/database.js'
 
 
 const server = new ApolloServer({
   typeDefs: [typeDefsBook, typeDefsUser],
   resolvers: [booksResolvers, usersResolvers],
-  context: ({ req }) => ({ req }) 
+ 
 });
 
-async function startApolloServer() {
-  await server.start();
-  server.applyMiddleware({ app });
-}
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+  context: async({ req }) => {
+    // console.log("context")
+    const user =  await authenticate(req); 
+    // console.log(user)
+    return user
+  }
+})
 
-startApolloServer().then(() => {
-  app.use(authenticate);
+console.log(`Server ready at: ${url}`)
 
-  sequelize.sync({ force: process.env.FORCE_DB_SYNC === "true" })
+sequelize.sync({ force: process.env.FORCE_DB_SYNC === "true" })
     .then(() => {
       console.log("Database synchronization successful");
-      app.listen(process.env.PORT || 4000, () => {
-        console.log("Server is running");
-      });
     })
     .catch((error) => {
       console.error("Error synchronizing database:", error);
     });
-}).catch((error) => {
-  console.error("Error starting Apollo Server:", error);
-});

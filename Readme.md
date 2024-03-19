@@ -1,4 +1,25 @@
+Getting started
+Welcome to the ideaclan-test API! 🎉 Get familiar with available objects in the Schema Reference, or try querying this graph using Explorer.
+
+
+What this graph is all about
+Describe the purpose and use cases for your graph here. This is where you can tell the story of your API, and all of its deep magic...🦄🌌✨
+
+Accessing the graph
+🛰 You can send operations to this graph at http://localhost:3000/graphql
+
+📇 The Apollo Registry holds the canonical location of your schema. In the registry, this graph is referred to by its “graph ref”, which is: ideaclan-test@current.
+
+(Note: you can download Rover, the Apollo CLI tool for working with your schema locally.)
+
+Running operations
+
+query Query {
+    id
+}
+
 Project Documentation:
+
 1. Setup Instructions:
 
 Setup Instructions:

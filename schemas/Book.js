@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+// const { gql } = require('apollo-server-express');
 
-module.exports = gql`
+const typeDefsBook = `#graphql
   type Book {
     id: ID!
     title: String!
@@ -23,3 +23,4 @@ module.exports = gql`
     deleteBook(id: ID!): Boolean!
   }
 `;
+export default typeDefsBook;

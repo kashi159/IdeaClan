@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+// const { gql } = require('apollo-server-express');
 
-module.exports = gql`
+const typeDefsUser = `#graphql
   type User {
     id: ID!
     username: String!
@@ -12,6 +12,7 @@ module.exports = gql`
     username: String!
     email: String!
     password: String!
+    role: String!
   }
 
   input LoginInput {
@@ -35,3 +36,4 @@ module.exports = gql`
     deleteUser(id: ID!): Boolean!
   }
 `;
+export default typeDefsUser

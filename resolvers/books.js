@@ -1,17 +1,17 @@
-// resolvers/books.js
-const { Book } = require('../models/Book');
+// const { Book } = require('../models/Book');
+import Book from '../models/Book.js';
 
-module.exports = {
+const booksResolvers = {
   Mutation: {
-    addBook: async (_, { title, author }, { req }) => {
-      if (!req.user || req.user.role !== 'admin') {
+    addBook: async (_, { title, author }, user) => {
+      if (!user || user.role !== 'admin') {
         throw new Error('Unauthorized');
       }
-      const newBook = await Book.create({ title, author, owner: null });
+      const newBook = await Book.create({ title, author, owner: 0 });
       return newBook;
     },
-    borrowBook: async (_, { bookId }, { req }) => {
-      if (!req.user) {
+    borrowBook: async (_, { bookId }, user) => {
+      if (!user) {
         throw new Error('Unauthorized');
       }
       const book = await Book.findByPk(bookId);
@@ -21,7 +21,7 @@ module.exports = {
       if (book.owner) {
         throw new Error('Book already owned');
       }
-      book.owner = req.user.id;
+      book.owner = user.id;
       return await book.save();
     },
     buyBook: async (_, { bookId }, { req }) => {
@@ -69,6 +69,9 @@ module.exports = {
     },
   },
   Query: {
+    book: async (_, { id }) => {
+      return await Book.findByPk(id);
+    },
     books: async () => {
       return await Book.findAll();
     },
@@ -85,3 +88,5 @@ module.exports = {
     },
   },
 };
+
+export default booksResolvers;
