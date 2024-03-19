@@ -8,13 +8,18 @@ module.exports = gql`
     owner: ID!
   }
 
-  extend type Query {
+  type Query {
     books: [Book!]!
     book(id: ID!): Book
+    searchBooks(keyword: String!): [Book!]!
   }
 
-  extend type Mutation {
+  type Mutation {
     addBook(title: String!, author: String!): Book!
+    borrowBook(bookId: ID!): Book!
+    buyBook(bookId: ID!): Book!
+    requestBorrow(bookId: ID!, ownerId: ID!): Book!
+    approveBorrowRequest(bookId: ID!, userId: ID!): Book!
     deleteBook(id: ID!): Boolean!
   }
 `;

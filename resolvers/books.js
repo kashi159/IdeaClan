@@ -7,14 +7,14 @@ module.exports = {
       if (!req.user || req.user.role !== 'admin') {
         throw new Error('Unauthorized');
       }
-      const newBook = new Book({ title, author });
-      return await newBook.save();
+      const newBook = await Book.create({ title, author, owner: null });
+      return newBook;
     },
     borrowBook: async (_, { bookId }, { req }) => {
       if (!req.user) {
         throw new Error('Unauthorized');
       }
-      const book = await Book.findById(bookId);
+      const book = await Book.findByPk(bookId);
       if (!book) {
         throw new Error('Book not found');
       }

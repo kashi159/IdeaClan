@@ -23,13 +23,13 @@ module.exports = gql`
     token: String!
   }
 
-  extend type Query {
+  type Query {
     users: [User!]!
     user(id: ID!): User
     me: User
   }
 
-  extend type Mutation {
+  type Mutation {
     register(input: UserInput!): User!
     login(input: LoginInput!): AuthPayload!
     deleteUser(id: ID!): Boolean!

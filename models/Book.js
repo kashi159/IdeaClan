@@ -1,6 +1,6 @@
 // models/Book.js
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('../utils/database');
+const sequelize = require('../utils/database');
 
 const Book = sequelize.define('Book', {
   id: {
@@ -22,4 +22,4 @@ const Book = sequelize.define('Book', {
   },
 });
 
-module.exports = Book;
+module.exports = {Book};

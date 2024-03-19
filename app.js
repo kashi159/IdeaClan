@@ -7,32 +7,35 @@ const usersResolvers = require('./resolvers/users');
 const { authenticate } = require('./middleware/authenticate');
 require('dotenv').config();
 
-const { sequelize } = require('./utils/database');
+const sequelize  = require('./utils/database');
 
 const app = express();
 
 
 const server = new ApolloServer({
-  typeDefsBook,
-  typeDefsUser,
-  booksResolvers,
-  usersResolvers,
-  context: ({ req }) => ({ req }) // Pass request object to context for authentication
+  typeDefs: [typeDefsBook, typeDefsUser],
+  resolvers: [booksResolvers, usersResolvers],
+  context: ({ req }) => ({ req }) 
 });
 
-server.applyMiddleware({ app });
+async function startApolloServer() {
+  await server.start();
+  server.applyMiddleware({ app });
+}
 
-// Middleware for authentication
-app.use(authenticate);
+startApolloServer().then(() => {
+  app.use(authenticate);
 
-sequelize
-  .sync({ force: process.env.FORCE_DB_SYNC === "true" }) // Set FORCE_DB_SYNC in your .env for force sync
-  .then(() => {
-    console.log("Database synchronization successful");
-    app.listen(process.env.PORT || 4000, () => {
-      console.log("Server is running");
+  sequelize.sync({ force: process.env.FORCE_DB_SYNC === "true" })
+    .then(() => {
+      console.log("Database synchronization successful");
+      app.listen(process.env.PORT || 4000, () => {
+        console.log("Server is running");
+      });
+    })
+    .catch((error) => {
+      console.error("Error synchronizing database:", error);
     });
-  })
-  .catch((error) => {
-    console.error("Error synchronizing database:", error);
-  });
+}).catch((error) => {
+  console.error("Error starting Apollo Server:", error);
+});
