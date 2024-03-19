@@ -1,17 +1,6 @@
 Project Documentation:
 1. Setup Instructions:
 
-Provide detailed steps to set up the project locally, including installing dependencies, configuring environment variables, and running the server.
-API Documentation:
-
-Document the GraphQL schema, including types, queries, mutations, and subscriptions.
-Describe each endpoint, including input parameters, expected responses, and any authentication requirements.
-Provide examples of valid requests and responses.
-Authentication Procedures:
-
-If the API requires authentication, document the authentication mechanism (e.g., JWT, OAuth).
-Provide instructions for obtaining authentication tokens and including them in requests (e.g., as headers).
-Example GraphQL API Documentation:
 Setup Instructions:
 
 Install dependencies: npm install
@@ -19,6 +8,7 @@ Configure environment variables: Create a .env file and set PORT, DB_NAME, DB_US
 Run the server: npm start
 API Documentation:
 
+visit http:localhost:{port}/graphql to view the GraphQL playground.
 Queries:
 
 books: Retrieves a list of all books.

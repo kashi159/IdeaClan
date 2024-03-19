@@ -1,5 +1,5 @@
 // resolvers/books.js
-const { Book } = require('../models/Book')
+const { Book } = require('../models/Book');
 
 module.exports = {
   Mutation: {
@@ -28,7 +28,7 @@ module.exports = {
       if (!req.user) {
         throw new Error('Unauthorized');
       }
-      const book = await Book.findById(bookId);
+      const book = await Book.findByPk(bookId);
       if (!book) {
         throw new Error('Book not found');
       }
@@ -42,7 +42,7 @@ module.exports = {
       if (!req.user) {
         throw new Error('Unauthorized');
       }
-      const book = await Book.findById(bookId);
+      const book = await Book.findByPk(bookId);
       if (!book) {
         throw new Error('Book not found');
       }
@@ -56,7 +56,7 @@ module.exports = {
       if (!req.user || req.user.role !== 'admin') {
         throw new Error('Unauthorized');
       }
-      const book = await Book.findById(bookId);
+      const book = await Book.findByPk(bookId);
       if (!book) {
         throw new Error('Book not found');
       }
@@ -70,11 +70,18 @@ module.exports = {
   },
   Query: {
     books: async () => {
-      return await Book.find();
+      return await Book.findAll();
     },
     searchBooks: async (_, { keyword }) => {
       const regex = new RegExp(keyword, 'i'); // Case-insensitive search
-      return await Book.find({ $or: [{ title: regex }, { author: regex }] });
+      return await Book.findAll({
+        where: {
+          [Op.or]: [
+            { title: { [Op.iLike]: `%${keyword}%` } },
+            { author: { [Op.iLike]: `%${keyword}%` } },
+          ],
+        },
+      });
     },
   },
 };
