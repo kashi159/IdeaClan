@@ -2,7 +2,7 @@ const ApolloServer = require('apollo-server').ApolloServer
 const ApolloServerLambda = require('apollo-server-lambda').ApolloServer
 const { gql } = require('apollo-server-lambda');
 
-
+const sequelize = require('../utils/database');
 const typeDefsBook = require('../schemas/Book');
 const typeDefsUser = require('../schemas/User');
 const booksResolvers = require('../resolvers/books');
