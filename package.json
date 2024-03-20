@@ -15,6 +15,7 @@
     "aws-sdk": "^2.1581.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
+    "encoding": "^0.1.13",
     "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",
     "mock-aws-s3": "^4.0.2",
