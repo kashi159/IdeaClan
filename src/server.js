@@ -3,7 +3,7 @@ const ApolloServerLambda = require('apollo-server-lambda').ApolloServer
 const { gql } = require('apollo-server-lambda');
 
 const Book = require('../models/Book.js');
-const User = require('../models/User.js');
+// const User = require('../models/User.js');
 const { Op } = require('sequelize');
 require('dotenv').config();
 const User = require('../models/User.js'); // Assuming User model is exported using CommonJS
