@@ -2,11 +2,11 @@ const ApolloServer = require('apollo-server').ApolloServer
 const ApolloServerLambda = require('apollo-server-lambda').ApolloServer
 const { gql } = require('apollo-server-lambda');
 
-const Book = require('../models/Book');
+const Book = require('./models/Book');
 // const User = require('../models/User.js');
 const { Op } = require('sequelize');
 require('dotenv').config();
-const User = require('../models/User'); // Assuming User model is exported using CommonJS
+const User = require('./models/User'); // Assuming User model is exported using CommonJS
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // const typeDefsBook = require('../schemas/Book');
@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 // const booksResolvers = require('../resolvers/books');
 // const usersResolvers = require('../resolvers/users');
 // const authenticate = require('../middleware/authenticate');
-const sequelize = require('../utils/database');
+const sequelize = require('./utils/database');
 const secret = process.env.JWT_SECRET_KEY_USER;
 
 const authenticate = async (req, res, next) => {
