@@ -4,13 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "netlify-lambda serve src",
-    "build": "netlify-lambda build src"
+    "bundle": "cpx src/**/* functions/bundle"
   },
   "author": "Kashif Zafar",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "apollo-server": "^3.13.0",
     "apollo-server-lambda": "^3.13.0",
     "aws-sdk": "^2.1581.0",
     "bcrypt": "^5.1.1",
@@ -25,5 +25,9 @@
     "nock": "^13.5.4",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.1"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "nodemon": "^3.1.0"
   }
 }
