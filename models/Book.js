@@ -20,6 +20,10 @@ import sequelize from '../utils/database.js';
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  borrowRequestedBy: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  }
 });
 
 export default Book;

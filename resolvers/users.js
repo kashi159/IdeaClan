@@ -44,13 +44,11 @@ const usersResolvers = {
       const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET_KEY_USER, { expiresIn: '1d' });
       return { token };
     },
-    deleteUser: async (_, { id }, { user }) => {
-      if (!user) {
+    deleteUser: async (_, { id }, user) => {
+      if (!user || user.role !== 'admin') {
         throw new Error('Unauthorized');
       }
-      if (id !== user.id) {
-        throw new Error('Unauthorized');
-      }
+      
       const deletedUser = await User.destroy({ where: { id } });
       return deletedUser ? true : false;
     },

@@ -6,6 +6,7 @@ const typeDefsBook = `#graphql
     title: String!
     author: String!
     owner: ID!
+    borrowRequestedBy: ID
   }
 
   type Query {

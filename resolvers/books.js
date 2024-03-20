@@ -1,5 +1,6 @@
 // const { Book } = require('../models/Book');
 import Book from '../models/Book.js';
+import { Op } from 'sequelize';
 
 const booksResolvers = {
   Mutation: {
@@ -24,8 +25,8 @@ const booksResolvers = {
       book.owner = user.id;
       return await book.save();
     },
-    buyBook: async (_, { bookId }, { req }) => {
-      if (!req.user) {
+    buyBook: async (_, { bookId }, user) => {
+      if (!user) {
         throw new Error('Unauthorized');
       }
       const book = await Book.findByPk(bookId);
@@ -35,38 +36,54 @@ const booksResolvers = {
       if (book.owner) {
         throw new Error('Book already owned');
       }
-      book.owner = req.user.id;
+      book.owner = user.id;
       return await book.save();
     },
-    requestBorrow: async (_, { bookId, ownerId }, { req }) => {
-      if (!req.user) {
+    requestBorrow: async (_, { bookId, ownerId }, user) => {
+      if (!user) {
         throw new Error('Unauthorized');
       }
       const book = await Book.findByPk(bookId);
       if (!book) {
         throw new Error('Book not found');
       }
-      if (book.owner !== ownerId) {
+      if (book.owner != ownerId) {
+        console.log(book.owner, ownerId);
         throw new Error('Book not owned by specified user');
       }
-      book.borrowRequestedBy = req.user.id;
+      book.borrowRequestedBy = user.id;
       return await book.save();
     },
-    approveBorrowRequest: async (_, { bookId, userId }, { req }) => {
-      if (!req.user || req.user.role !== 'admin') {
+    approveBorrowRequest: async (_, { bookId, userId }, user) => {
+      if (!user) {
         throw new Error('Unauthorized');
       }
       const book = await Book.findByPk(bookId);
       if (!book) {
         throw new Error('Book not found');
       }
-      if (!book.borrowRequestedBy || book.borrowRequestedBy !== userId) {
+      console.log(book.owner, user.id);
+      if (book.owner != user.id) {
+        throw new Error('Not the owner of this book');
+      }
+      if (!book.borrowRequestedBy || book.borrowRequestedBy != userId) {
         throw new Error('No borrow request found for this user and book');
       }
       book.owner = userId;
       book.borrowRequestedBy = null;
       return await book.save();
     },
+    deleteBook: async (_, { id }, user) => {
+      if (!user || user.role !== 'admin') {
+        throw new Error('Unauthorized');
+      }
+      const book = await Book.findByPk(id);
+      if (!book) {
+        throw new Error('Book not found');
+      }
+      const deleted = await book.destroy(); 
+      return !!deleted;
+    }
   },
   Query: {
     book: async (_, { id }) => {
@@ -76,12 +93,12 @@ const booksResolvers = {
       return await Book.findAll();
     },
     searchBooks: async (_, { keyword }) => {
-      const regex = new RegExp(keyword, 'i'); // Case-insensitive search
+      const regex = `%${keyword}%`;
       return await Book.findAll({
         where: {
           [Op.or]: [
-            { title: { [Op.iLike]: `%${keyword}%` } },
-            { author: { [Op.iLike]: `%${keyword}%` } },
+            { title: { [Op.like]: regex } },
+            { author: { [Op.like]: regex } },
           ],
         },
       });
