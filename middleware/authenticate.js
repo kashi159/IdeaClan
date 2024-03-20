@@ -1,8 +1,8 @@
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config();
 
-import User from "../models/User.js";
-import jwt from 'jsonwebtoken';
+const User = require('../models/User.js');
+const jwt = require('jsonwebtoken');
+
 
 const secret = process.env.JWT_SECRET_KEY_USER;
 
@@ -32,4 +32,4 @@ const authenticate = async (req, res, next) => {
     }
 };
 
-export default authenticate;
+module.exports = authenticate;

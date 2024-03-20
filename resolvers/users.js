@@ -1,9 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import User from '../models/User.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
+require('dotenv').config();
+const User = require('../models/User.js'); // Assuming User model is exported using CommonJS
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const usersResolvers = {
   Query: {
     users: async () => {
@@ -55,4 +53,4 @@ const usersResolvers = {
   },
 };
 
-export default usersResolvers;
+module.exports = usersResolvers;

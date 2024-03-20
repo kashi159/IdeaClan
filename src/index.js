@@ -1,4 +1,4 @@
-import { createLocalServer } from './server.js'
+const { createLocalServer } = require("./server")
 
 const server = createLocalServer();
 

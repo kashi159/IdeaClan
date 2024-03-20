@@ -1,6 +1,6 @@
 // const { gql } = require('apollo-server-express');
-// const { gql } = require("apollo-server-lambda");
-import { gql } from 'apollo-server-lambda';
+const { gql } = require("apollo-server-lambda");
+// import { gql } from 'apollo-server-lambda';
 
 const typeDefsBook = gql`
   type Book {
@@ -26,4 +26,4 @@ const typeDefsBook = gql`
     deleteBook(id: ID!): Boolean!
   }
 `;
-export default typeDefsBook;
+module.exports =  typeDefsBook;

@@ -1,6 +1,6 @@
 // const { gql } = require('apollo-server-express');
-// const { gql } = require("apollo-server-lambda");
-import { gql } from 'apollo-server-lambda';
+const { gql } = require("apollo-server-lambda");
+// import { gql } from 'apollo-server-lambda';
 
 const typeDefsUser = gql`
   type User {
@@ -38,4 +38,5 @@ const typeDefsUser = gql`
     deleteUser(id: ID!): Boolean!
   }
 `;
-export default typeDefsUser
+module.exports = typeDefsUser;
+// export default typeDefsUser

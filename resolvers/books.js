@@ -1,6 +1,5 @@
-// const { Book } = require('../models/Book');
-import Book from '../models/Book.js';
-import { Op } from 'sequelize';
+const Book = require('../models/Book.js');
+const { Op } = require('sequelize');
 
 const booksResolvers = {
   Mutation: {
@@ -106,4 +105,4 @@ const booksResolvers = {
   },
 };
 
-export default booksResolvers;
+emodule.exports = booksResolvers;
