@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-lambda'
-import ApolloClient from "apollo-boost";
-import ServerlessHttp from 'serverless-http'
+// import ApolloClient from "apollo-boost";
+// import ServerlessHttp from 'serverless-http'
 import { typeDefs as typeDefsBook } from '../schemas/Book.js'
 import { typeDefs as typeDefsUser } from '../schemas/User.js'
 import booksResolvers from '../resolvers/books.js'
