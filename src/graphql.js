@@ -11,7 +11,7 @@ import sequelize from '../utils/database.js'
 const server = new ApolloServer({
   typeDefs: [typeDefsBook, typeDefsUser],
   resolvers: [booksResolvers, usersResolvers],
-  // mocks: true,
+  mocks: true,
   playground: true,
   context: async ({ event, context }) => {
     const user = await authenticate(event)
