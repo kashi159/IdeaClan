@@ -43,4 +43,4 @@ sequelize.sync({ force: process.env.FORCE_DB_SYNC === 'true' })
   console.error('Error synchronizing database:', error)
 })
 
-  export { createLambdaServer, createLocalServer }
+module.exports = { createLambdaServer, createLocalServer }
