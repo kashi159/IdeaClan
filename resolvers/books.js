@@ -105,4 +105,4 @@ const booksResolvers = {
   },
 };
 
-emodule.exports = booksResolvers;
+module.exports = booksResolvers;

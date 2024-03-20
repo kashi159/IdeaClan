@@ -27,4 +27,4 @@ const sequelize = require('../utils/database');
   }
 });
 
-export default Book;
+module.exports = Book;
