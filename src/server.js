@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server';
 import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
-import { gql } from 'apollo-server-lambda';
+// import { gql } from 'apollo-server-lambda';
 
 import { typeDefs as typeDefsBook } from '../schemas/Book.js'
 import { typeDefs as typeDefsUser } from '../schemas/User.js'
@@ -43,4 +43,4 @@ sequelize.sync({ force: process.env.FORCE_DB_SYNC === 'true' })
   console.error('Error synchronizing database:', error)
 })
 
-  module.exports = { createLambdaServer, createLocalServer }
+  export { createLambdaServer, createLocalServer }

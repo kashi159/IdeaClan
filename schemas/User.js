@@ -1,5 +1,5 @@
 // const { gql } = require('apollo-server-express');
-import { gql } from 'apollo-server-lambda';
+const { gql } = require("apollo-server-lambda");
 
 const typeDefsUser = gql`
   type User {
