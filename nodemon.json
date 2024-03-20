@@ -2,5 +2,5 @@
     "watch": ["src", "functions"],
     "ext": ".js",
     "ignore": [],
-    "exec": "node ./src/index.js"
+    "exec": "node ./src/graphql.js"
   }

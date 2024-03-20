@@ -4,8 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon",
-    "bundle": "cpx src/**/* functions/bundle"
+    "start": "nodemon"
   },
   "author": "Kashif Zafar",
   "license": "ISC",
