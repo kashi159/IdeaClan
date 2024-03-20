@@ -2,8 +2,8 @@ import { ApolloServer } from 'apollo-server';
 import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
 // import { gql } from 'apollo-server-lambda';
 
-import { typeDefs as typeDefsBook } from '../schemas/Book.js'
-import { typeDefs as typeDefsUser } from '../schemas/User.js'
+import typeDefsBook  from '../schemas/Book.js'
+import typeDefsUser from '../schemas/User.js'
 import booksResolvers from '../resolvers/books.js'
 import usersResolvers from '../resolvers/users.js'
 import authenticate from '../middleware/authenticate.js'
