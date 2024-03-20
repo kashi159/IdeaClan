@@ -1,5 +1,5 @@
 // const { gql } = require('apollo-server-express');
-const { gql } = require("apollo-server-lambda");
+import { gql } from 'apollo-server-lambda';
 
 const typeDefsBook = gql`
   type Book {

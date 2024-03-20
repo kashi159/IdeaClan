@@ -1,6 +1,6 @@
-const ApolloServer = require('apollo-server').ApolloServer
-const ApolloServerLambda = require('apollo-server-lambda').ApolloServer
-const { gql } = require('apollo-server-lambda');
+import { ApolloServer } from 'apollo-server';
+import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
+import { gql } from 'apollo-server-lambda';
 
 import { typeDefs as typeDefsBook } from '../schemas/Book.js'
 import { typeDefs as typeDefsUser } from '../schemas/User.js'
